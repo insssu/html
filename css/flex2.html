@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box-main {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            justify-content: space-between;
+            
+            box-sizing: border-box;
+            border: 1px solid black;
+            
+            width: 1500px;
+            height: 1000px;
+        }
+
+        .box-A {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            
+            box-sizing: border-box;
+            border: 1px solid black;
+            margin: 20px;
+            padding: 20px;
+            width: 700px;
+            height: 900px;
+        }
+
+        .box-B {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: space-between;
+            /* flex-wrap: wrap; */
+            
+            box-sizing: border-box;
+            border: 1px solid black;
+            margin: 20px;
+            padding: 20px;
+            width: 700px;
+            height: 900px;
+        }
+
+        .box-a1 {
+            
+            display: flex;
+            flex-direction: column;
+            align-content: space-between;
+            box-sizing: border-box;
+
+            border: 1px solid black;
+            width: 100%;
+            height: 40%;
+        }
+        .box-a2 {
+            
+            display: flex;
+            align-items: center;
+            
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 100%;
+            height: 40%;
+        }
+        .box-b {
+            display: flex;
+            flex-direction: column;
+            align-content: space-between;
+            box-sizing: border-box;
+
+            border: 1px solid black;
+            width: 100%;
+            height: 40%;
+        }
+
+        .box-aa {
+
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+        }
+      
+
+        .box-c {
+            display: flex;
+            align-items: center;
+
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <main class="box-main">
+        <div class="box-A">
+            <div class="box-a1">
+                <div class="box-aa"></div>
+                <div class="box-aa"></div>
+                <div class="box-aa"></div>
+                <div class="box-aa"></div>
+            </div>
+            <div class="box-a2">
+                <div class="box-c"></div>
+            </div>
+        </div>
+        <div class="box-B">
+            <div class="box-b">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="box-b">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

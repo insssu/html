@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box-a {
+            /* flex는 기준이 부모이다. */
+            /* flex는 같은 요소를 겹쳐서 둘 수 없다. 이때는 position을 사용해야만 한다. */
+            /* flex-direction은 row가 기본값. justify-content는 flex-start가 기본값.  */
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            /* align-content: space-between; */
+            /* align-content: center;  */
+            /* align-items: center; */
+            flex-wrap: wrap;
+
+            /* padding 영역을 신경 써야 한다. */
+
+            box-sizing: border-box;
+            border: 1px solid black;
+            padding: 20px;
+            width: 500px;
+            height: 300px;
+        }
+
+        .box-b {
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: 100px;
+            /* stretch 를 쓰려면 높이(height)를 고정시킨 것을 풀어줘야 한다. */
+            height: 50px;
+            text-align: center;
+        }
+
+        .box-b:nth-of-type(2) {
+            /* self는 자식요소에 하나만 골라서 속성을 부여해 주는 것. */
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-a">
+        <div class="box-b">1</div>
+        <div class="box-b">2</div>
+        <div class="box-b">3</div>
+        <div class="box-b">4</div>
+        <div class="box-b">5</div>
+        <div class="box-b">6</div>
+        <div class="box-b">7</div>
+        <div class="box-b">8</div>
+        <div class="box-b">9</div>
+        <div class="box-b">10</div>
+        <div class="box-b">11</div>
+        <div class="box-b">12</div>
+    </div>
+</body>
+</html>
