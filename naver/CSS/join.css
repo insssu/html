@@ -82,7 +82,8 @@
     height: 20px;
     background-image: url(https://ssl.pstatic.net/static/nid/join/m_sp_06_realname_48b1e603.png);
     background-size: 372px 326px;
-    background-position: -342px -248px;background-repeat: no-repeat;
+    background-position: -342px -248px;
+    background-repeat: no-repeat;
 }
 
 .join-toggle input:checked + label::after {
