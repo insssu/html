@@ -20,9 +20,14 @@
 <body>
     <div>
         <input 
+            type="text" class="name-input" 
+            name="name" placeholder="name"
+            onkeydown="handleUserInputKeyDown(event)"
+        > 
+        <input 
             type="text" class="username-input" 
             name="username" placeholder="username"
-            onkeydown="handleUserInputKeyDown(event)"
+            onkeydown="handleUserInputKeyDown(event)"   
         > 
         <input 
             type="text" class="password-input" 
@@ -34,6 +39,7 @@
         <thead>
             <tr>
                 <th>번호</th>
+                <th>성명</th>
                 <th>사용자명</th>
                 <th>비밀번호</th>
             </tr>
