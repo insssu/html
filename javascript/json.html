@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // JSON ( JavaScript Object Notation ) 데이터 전송 표준 객체
+        const user = {
+            username: "aaaa",
+            password: "1234",
+            name: "황인수"
+        }
+
+        const jsonUser = JSON.stringify(user); // JSON으로 바뀐 상태.
+        const jsonParseUser = JSON.parse(jsonUser);
+
+        console.log(user);
+        console.log(jsonUser);
+        console.log(jsonParseUser)
+
+        console.log(user.username);
+        console.log(jsonUser.username);
+        console.log(jsonParseUser.username);
+
+        const users = [ user, { ...user, username: "bbbb"}];
+        console.log(users);
+        const jsonUsers = JSON.stringify(users);
+        console.log(jsonUsers);
+        const jsonParseUsers = JSON.parse(jsonUsers);
+        console.log(jsonParseUsers);
+
+        /*
+            객체 형태로 생긴 '문자열' (객체가 아님) => 참조할 수 없다.
+            "{
+                "key": "value" value의 형태에 따라 문자열이면 문자열, 인트형이면 인트형으로. 하지만 key값은 "무조건 문자열"
+                "key": value
+                "key": [value]
+            }"
+
+        */
+        
+
+
+    </script>
+</body>
+</html>
