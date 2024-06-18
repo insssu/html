@@ -9,7 +9,7 @@ let inputMode = 1;
 let userList = [];
 loadUserList();
 
-let epmtyUser = {
+let emptyUser = {
     id: 0,      // user 객체에 id 값을 주겠다.
     name:"",
     username: "",
@@ -17,7 +17,7 @@ let epmtyUser = {
 };
 
 let user = {        // 초기화용
-    ...epmtyUser    // 새로운 주소안에 username과 password의 값을 넣은 것.
+    ...emptyUser    // 새로운 주소안에 username과 password의 값을 넣은 것. 상태.
 }
 
 function renderTable() {        // 화면에 뿌려주는 function
@@ -25,7 +25,7 @@ function renderTable() {        // 화면에 뿌려주는 function
     userTableBody.innerHTML = userList.map(({id, name, username, password}, index) => {   // 호이스팅은 function 정의에서 일어난다.
         return `
             <tr>
-                <th><input type="checkbox" onchange="handleUserCheck(event)"></th>
+                <th><input type="checkbox" onchange="handleUserCheck(event)" value="${id}"></th>
                 <td>${index + 1}</td>
                 <td>${id}</td>
                 <td>${name}</td>
@@ -42,7 +42,7 @@ function renderTable() {        // 화면에 뿌려주는 function
 function handleUserInputKeyDown(e) {
     user = {
         ...user,                 // 입력된 값을 자기 자신에게 계속 쌓는 것. 객체를 계속 새로 만들어주기 때문에 주소가 바뀜.
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value     // 기존의 user에 덮어 쓰겠다.
     }
 
     // user[e.target.name] = e.target.value;   // 주소는 고정.
@@ -64,16 +64,30 @@ function handleUserInputKeyDown(e) {
         }
 
         if(e.target.name === "password") {
-            userList = [ ...userList, { ...user, id: getNewId() } ];        // userList에 새로운 정보 추가. 스프레드를 사용해서 값만 새로운 객체로 변경해 주는것이 좋다.
+            if (inputMode === 1) {
+                userList = [ ...userList, { ...user, id: getNewId() } ];        // userList에 새로운 정보 추가. 스프레드를 사용해서 값만 새로운 객체로 변경해 주는것이 좋다.
+            }
+            
+            if (inputMode === 2) {
+                let findIndex = -1;
+                for (let i = 0; i < userList.length; i++) {
+                    if (userList[i].id === user.id) {
+                        findIndex = i;
+                        break;
+                    }
+                }
+                if (findIndex === -1) {
+                    alert("사용자 정보 수정 중 오류 발생. 관리자에게 문의하세요."); // 오류가 잘 나지 않지만 항상 오류처리는 해주자
+                    return;
+                }
+                userList[findIndex] = user;
+            }
 
             
             saveUserList();
             renderTable();      // 추가 되었으니 새로운 정보를 꾸려줘야 한다.
-
-            nameInput.value = epmtyUser.name;
-            usernameInput.value = epmtyUser.username;   // 빈 값으로 바꿔주고
-            passwordInput.value = epmtyUser.password;
-            // localStorage.setItem("list", JSON.stringify(userList)) 밑에 function으로 빼준 내용
+            clearInputValue();
+            
 
             nameInput.focus();      // name으로 다시 포커스를 보내줘서 새로운 값을 받을 수 있도록.
         }
@@ -82,7 +96,7 @@ function handleUserInputKeyDown(e) {
 }
 
 function saveUserList() {
-    localStorage.setItem("userList", JSON.stringify(userList));
+    localStorage.setItem("userList", JSON.stringify(userList));         // 로컬 리스트에 value값은 무조건 문자열로 가져와야 한다.
 }
 
 function loadUserList() {
@@ -101,10 +115,55 @@ function deleteUser(e) {
 
 function getNewId() {
     const userIds = userList.map(user => user.id);
-    const maxUserId = userIds.length === 0 ? 20240000 : Math.max.apply(null, userIds);
+    const maxUserId = userIds.length === 0 ? 20240000 : Math.max.apply(null, userIds);      
     return maxUserId + 1;
 }
 
 function handleUserCheck(e) {
-    e.target.checked = true;
+    const checkBoxList = document.querySelectorAll("input[type='checkBox']");   // 체크박스를 radio로 쓰면 안되는건가?? => 라디오는 체크를 풀 수 없음.
+    for(let checkBox of checkBoxList ) {
+        if ( checkBox === e.target ) {
+            continue;
+        }
+        checkBox.checked = false;
+    }
+    
+    if (e.target.checked) {
+        inputMode = 2;
+        const [ findUser ] = userList.filter(user => user.id === parseInt(e.target.value));
+        setInputValue(findUser);    // value의 자료형 : string
+        user = {        
+            ...emptyUser
+        }
+        return;
+    }
+
+    clearInputValue();
+           
+}
+
+function setInputValue(user) {
+    const nameInput = document.querySelector(".name-input");
+    const usernameInput = document.querySelector(".username-input");
+    const passwordInput = document.querySelector(".password-input");
+
+    
+    // const findUser = userList.filter(user => user.id === id)[0];   이 구조와 같지만 무조건 0번째 인덱스를 가져오기 때문에 비구조 할당으로 써줘도 된다.
+    nameInput.value = user.name;
+    usernameInput.value = user.username;
+    passwordInput.value = user.password;
+}
+
+function clearInputValue() {
+    const nameInput = document.querySelector(".name-input");
+    const usernameInput = document.querySelector(".username-input");
+    const passwordInput = document.querySelector(".password-input");
+    nameInput.value = emptyUser.name;
+    usernameInput.value = emptyUser.username;   // 빈 값으로 바꿔주고
+    passwordInput.value = emptyUser.password;
+
+    inputMode = 1;
+    user = {
+        ...emptyUser
+    }        
 }
